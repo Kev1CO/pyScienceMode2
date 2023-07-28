@@ -93,6 +93,7 @@ class Worker(QObject):
             direction = "concentric"
 
             self.stimulation_state = None
+            self.motomed = motomed
 
     def get_angle(self):
         voltage = self.task2.read() - self.min_voltage

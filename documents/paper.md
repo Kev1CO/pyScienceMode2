@@ -4,9 +4,9 @@ title: "`pyScienceMode`: an Open-Source Python Package for Rehastim electro-stim
 tags:
   - python
   - functional electrical stimulation
+  - control
   - Rehastim
   - ScienceMode
-  - control
 
 authors:
   - name: Kevin Co
@@ -23,13 +23,13 @@ affiliations:
   - name: Institute of Biomedical Engineering, Faculty of Medicine, University of Montreal, Canada
     index: 1
 
-date: 2 December 2022 #CHANGE DATE
+date: 14 September 2023 #CHANGE DATE
 bibliography: paper.bib
 ---
 
 # Summary
 
-Functional electrical stimulation (FES) is a rehabilitation technique that uses electrical currents to activate muscles with the objective of producing functional movement.
+Functional electrical stimulation (FES) is a rehabilitation technique that uses electrical currents to activate muscles with the purpose of producing functional movement.
 It is an efficient rehabilitation therapy for patients with neurological disorders [REF] as it bypasses the neural command necessary to muscle activation.
 The Rehastim devices (Hasomed Inc., Magdeburg, Germany) are a range of electro-stimulators. 
 They are broadly used in the clinical and research field to peripherally stimulate muscles to restore motor functions.
@@ -49,7 +49,7 @@ Currently, the development for the Rehastim 2 device is fully carried out. As fo
 Emerging stimulation strategies (ibitoye2016strategies) and controls (rouse2019fes) to optimize a movement (molazadeh2021shared) or muscle force (doll2018dynamic) further pushes the devices capabilities.
 Most of the time, the electro stimulation devices are software limited preventing the user to freely control the stimulator.
 This limitation is ment to prevent the user from harming himself or the patient.
-Therefore, not all the stimulators on the market enables the possibility of controlling the stimulator from an external hardware as it is not approved by medical norm (trouver une ref). 
+Therefore, not all the stimulators on the market enables the possibility of controlling the stimulator from an external hardware as it is not approved by medical norms (trouver une ref). 
 For this reason, the Rehastim 2 is one of the most used electro-stimulator in research (find a ref).
 Thus, a need for a user-friendly python package that allows the user to control the stimulator at his best and in real-time is asked for.
 This package will enable the full and intuitive control of Rehastim devices mandatory for the testing of new rehabilitation protocols and further understand the underlying mechanisms of FES.
@@ -183,7 +183,7 @@ stimulator.close_port()
 
 The plot for 1 second stimulation at 30Hz frequency, 300us duration and 20mA intensity is shown in the following figure: 
 
-![Stimulation signal display of a 1 second stimulation at 30Hz frequency, 300us duration and 20mA intensity.
+![Stimulation signal display on Vicon Nexus (Oxford, UK) of a 1 second stimulation train at 30Hz frequency, 300us duration and 20mA intensity.
 \label{fig:emg_plot}](MAKE_THE_PLOT.png)
 
 

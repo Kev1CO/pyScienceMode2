@@ -53,9 +53,9 @@ channel_4 = Channel(
 stimulator = St(port="COM4", show_log="Status")  # Enter the port on which the rehastimP24 is connected
 # Add the channels you want to stimulate to the list.
 list_channels.append(channel_1)
-list_channels.append(channel_2)
-list_channels.append(channel_3)
-list_channels.append(channel_4)
+# list_channels.append(channel_2)
+# list_channels.append(channel_3)
+# list_channels.append(channel_4)
 
 """
 General level commands. 

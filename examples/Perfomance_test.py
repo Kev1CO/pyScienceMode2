@@ -27,6 +27,27 @@ def get_trigger():
             # break
 
 
+def get_trigger(self):
+    # self.interface.init_client()
+    self.interface.get_frame()
+    self.interface.add_device(
+        nb_channels=2,
+        device_type=DeviceType.Generic,
+        name="stim",
+        rate=10000,
+    )
+    # break when everything is started
+    while True:
+        trigger_data = self.interface.get_device_data(device_name="stim")[1:,:]
+        idx = np.argwhere(trigger_data > 1.5)
+        if len(idx) > 0 :
+            stimulatorp24.start_stimulation(upd_list_channels=list_channels, stimulation_duration=2, safety=True)
+
+
+#
+# def init_trigger(self):
+#     self.interface = ViconClient(ip="127.0.0.1", system_rate=100, init_now=True)
+
 def init_trigger():
     interface = ViconClient(ip="192.168.1.211", system_rate=100, init_now=True)
     return interface
@@ -185,7 +206,6 @@ def test_frequency(device: Device):
         stimulator2.start_stimulation(upd_list_channels=list_channels, stimulation_duration=2)
         stimulator2.end_stimulation()
         list_channels.clear()
-
 
 def test_force_rehastim2():
     channel_1 = Channel(mode=Modes.SINGLE, no_channel=1, name="Biceps", amplitude=30, pulse_width=300,
@@ -466,15 +486,14 @@ def exe():
 # decalage(50, 25, 25, Device.Rehastim2)
 # exe()
 
-
 if __name__ == '__main__':
-    # stimulator2 = St2(port="COM4", show_log=True)
-    stimulatorp24 = St(port="COM4", show_log=True)
+
+    stimulatorp24 = St(port="COM4", show_log=False)
     list_points = []
     list_channels = []
-    channel_1 = Channel(mode=Modes.SINGLE, no_channel=1, name="Biceps", amplitude=30,
-                        pulse_width=350,
+    channel_1 = Channel(mode=Modes.SINGLE, no_channel=1, name="Biceps", amplitude=30, frequency=50, pulse_width=350,
                         device_type=Device.Rehastimp24)
     list_channels.append(channel_1)
     stimulatorp24.init_stimulation(list_channels=list_channels)
     get_trigger()
+

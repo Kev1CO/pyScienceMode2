@@ -9,7 +9,6 @@ import numpy as np
 
 
 def get_trigger():
-    # self.interface.init_client()
     interface = init_trigger()
     interface.get_frame()
     interface.add_device(
@@ -23,26 +22,8 @@ def get_trigger():
         trigger_data = interface.get_device_data(device_name="stim")[1:, :]
         idx = np.argwhere(trigger_data > 1.5)
         if len(idx) > 0:
-            stimulatorp24.start_stimulation(upd_list_channels=list_channels, stimulation_duration=0.1)
+            stimulator2.start_stimulation(upd_list_channels=list_channels, stimulation_duration=1)
             # break
-
-
-def get_trigger(self):
-    # self.interface.init_client()
-    self.interface.get_frame()
-    self.interface.add_device(
-        nb_channels=2,
-        device_type=DeviceType.Generic,
-        name="stim",
-        rate=10000,
-    )
-    # break when everything is started
-    while True:
-        trigger_data = self.interface.get_device_data(device_name="stim")[1:,:]
-        idx = np.argwhere(trigger_data > 1.5)
-        if len(idx) > 0 :
-            stimulatorp24.start_stimulation(upd_list_channels=list_channels, stimulation_duration=2, safety=True)
-
 
 #
 # def init_trigger(self):
@@ -51,7 +32,6 @@ def get_trigger(self):
 def init_trigger():
     interface = ViconClient(ip="192.168.1.211", system_rate=100, init_now=True)
     return interface
-
 
 # stimulator2 = St2(port="COM3", show_log=True)
 
@@ -488,12 +468,11 @@ def exe():
 
 if __name__ == '__main__':
 
-    stimulatorp24 = St(port="COM4", show_log=False)
+    stimulator2 = St2(port="COM5", show_log=False)
     list_points = []
     list_channels = []
-    channel_1 = Channel(mode=Modes.SINGLE, no_channel=1, name="Biceps", amplitude=30, frequency=50, pulse_width=350,
-                        device_type=Device.Rehastimp24)
+    channel_1 = Channel(mode=Modes.SINGLE, no_channel=1, name="Biceps", amplitude=30, pulse_width=350,
+                        device_type=Device.Rehastim2)
     list_channels.append(channel_1)
-    stimulatorp24.init_stimulation(list_channels=list_channels)
+    stimulator2.init_channel(stimulation_interval=8, list_channels=list_channels)
     get_trigger()
-

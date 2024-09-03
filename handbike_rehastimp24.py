@@ -5,7 +5,7 @@ import nidaqmx
 
 from pyScienceMode2 import RehastimP24 as St
 from pyScienceMode2 import Channel as Ch
-from pyScienceMode2 import Channel, Point, Device, Modes
+from pyScienceMode2 import Point, Device, Modes
 
 """
 This example shows how to use the RehastimP24 device for a hand cycling purpose.
@@ -13,12 +13,13 @@ Because the RehastimP24 device is not compatible with the MotoMed, this example 
 Therefore the nidaqmx library will be used to recover the pedal angle of the bike.
 """
 
+
 class HandCyclingP24:
     def __init__(self):
         super(HandCyclingP24, self).__init__()
         channel_muscle_name = ["Triceps_r", "Biceps_r", "Delt_ant_r", "Delt_post_r", "Triceps_l", "Biceps_l", "Delt_ant_l",
                                "Delt_post_l"]
-        self.list_channels = [Ch(mode=Modes.SINGLE, no_channel=i, amplitude=0, pulse_width=300, frequency=10, name=channel_muscle_name[i], device_type=Device.Rehastimp24) for i in range(1, 9)]
+        self.list_channels = [Ch(mode=Modes.SINGLE, no_channel=i, amplitude=0, pulse_width=300, frequency=10, ramp=1, name=channel_muscle_name[i-1], device_type=Device.Rehastimp24) for i in range(1, 9)]
 
         # Set the intensity for each muscles
         self.biceps_r_intensity = 10
@@ -31,7 +32,7 @@ class HandCyclingP24:
         self.delt_post_l_intensity = 10
 
         # Create our object Stimulator
-        self.stimulator = St(port="COM4", show_log=True)
+        self.stimulator = St(port="COM5", show_log=True)
         self.stimulator.init_stimulation(list_channels=self.list_channels)
         self.angle = 0
 
@@ -56,7 +57,6 @@ class HandCyclingP24:
             self.actual_voltage = None
 
             self.stimulation_state = None
-            self.motomed = motomed
 
     def get_angle(self):
         voltage = self.task2.read() - self.min_voltage
